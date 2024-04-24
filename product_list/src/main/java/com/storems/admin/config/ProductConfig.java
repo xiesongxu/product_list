@@ -25,7 +25,7 @@ import javax.sql.DataSource;
  */
 @Configuration()
 @ComponentScan("com.storems.admin")
-@MapperScan("com.storems.admin.mapper")
+@MapperScan("com.storems.admin")
 public class ProductConfig {
 
     /**

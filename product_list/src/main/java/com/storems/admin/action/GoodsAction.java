@@ -22,7 +22,7 @@ public class GoodsAction {
 	private static final long serialVersionUID = 607187668026853711L;
 
 
-	//@Autowired
+	@Autowired
 	private GoodsService goodsService;
 
 

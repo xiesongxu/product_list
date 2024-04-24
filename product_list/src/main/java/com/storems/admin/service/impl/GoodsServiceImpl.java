@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
-    //@Autowired
+    @Autowired
     private GoodsDao goodsDao;
 
     

@@ -54,7 +54,7 @@
     <script type="text/javascript" src="${rPath}/scripts/ui/jquery.poshytip.js"></script>
     <script type="text/javascript" src="${rPath}/scripts/ui/jquery.harmony.ui.convert.js"></script>
     <script type="text/javascript">
-        var templateRoot = '<%= basePath %>';
+        var templateRoot = "<%= basePath %>";
     </script>
 <script src="${pageContext.request.contextPath}/js/goods.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/goods.css"/>
@@ -67,6 +67,7 @@
 	</div>
 	
 	<div class="toolbar">
+		<button id="importExcel">导入excel</button>
 		<button id="addB">增加</button>
 		<button id="editB">修改</button>
 		<button id="deleteB">删除</button>
@@ -148,6 +149,26 @@
 				<tr>
 					<td colspan="4" style="text-align: center;color: red;">
 						<span id="errorMsg"></span>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="addExcel" style="display: none;margin: 0;padding: 0 0 0 0;">
+	<div class="formarea">
+		<form id="excelForm" method="post">
+			<input type="hidden" id="excel" name="excel"/>
+			<table border="0">
+				<tr>
+					<td style="width: 100px;">选择文件</td>
+					<td style="width: 130px;"><input type="file" id="file" name="file" /></td>
+
+				</tr>
+				<tr>
+					<td style="width: 100px;">入库/出库</td>
+					<td style="width: 130px;">
+						<input type="radio" id="1" name="flag" value="1"/>入库
+						<input type="radio" id="2" name="flag" value="2"/>出库
 					</td>
 				</tr>
 			</table>

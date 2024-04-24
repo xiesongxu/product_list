@@ -72,5 +72,12 @@ public interface ProductListDao {
      */
     public List<Map> findProductUnsafeListPage(Map map);
 
+    /**
+     * 通过商品id找到对应商品总数
+     * @param productID
+     * @param curDate
+     * @return
+     */
+    public String findSumByProductId(String productID,String curDate);
 
 }

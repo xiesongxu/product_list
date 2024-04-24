@@ -118,6 +118,11 @@
         order by inputDate asc
     </select>
 
+    <select id="findSumByProductId" resultType="String" >
+        select sum(productSum)
+        from product_list
+        where productID=#{productID} and flag='1' and (timestampdiff(day,inputDate,#{curDate})-expireDate)>0
+    </select>
 
 
 </mapper>

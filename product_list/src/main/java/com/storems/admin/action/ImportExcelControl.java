@@ -27,7 +27,7 @@ public class ImportExcelControl {
 
     @PostMapping("/import")
     @ResponseBody
-    public String importExcel(@RequestParam("file") MultipartFile file,String flag) {
+    public String importExcel(@RequestParam("file") MultipartFile file,@RequestParam("flag")String flag) {
         try {
             // 读取文件
             Workbook workbook = WorkbookFactory.create(file.getInputStream());

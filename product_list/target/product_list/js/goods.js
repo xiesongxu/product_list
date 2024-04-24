@@ -36,6 +36,45 @@ $(function() {
 		});
 	}
 
+	$("#importExcel").click(function() {
+		addExcel();
+	});
+
+	function addExcel() {
+		$("#excelForm").clearForm();
+		$("#addExcel").dialog("option", "title", "导入Excel文件").dialog("open");
+		excelInput();
+	}
+	// 新建弹出窗口
+	$("#addExcel").dialog({
+		width : 500,
+		height : 300,
+		buttons : { // 为对话框添加按钮
+			"保存" : function() {
+				save();
+			},
+			"重置" : function() {
+				$("#goodsForm").clearForm();
+			},
+			"取消" : function() {
+				$("#addDialog").dialog("close");
+			}
+		},
+		open : function() {
+		},
+		close : function() {
+			$("#goodsForm").clearForm();
+		}
+	});
+
+	function excelInput() {
+		$("input[type=text]").removeAttr("readonly");
+		$("textarea").removeAttr("readonly");
+		$("input[type=password]").removeAttr("disabled");
+		$("select").removeAttr("disabled");
+		$(".ui-dialog-buttonpane button").slice(0, 2).show();
+	}
+
 	$("#productionDate").datetime({
 		dateFmt : 'yyyy-MM-dd',
 		skin : 'ext'
@@ -155,6 +194,7 @@ $(function() {
 			$("#goodsForm").clearForm();
 		}
 	});
+
 
 	// 弹出新建窗口
 	function addDialog() {

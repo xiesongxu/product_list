@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品信息服务层实现类
@@ -100,5 +101,9 @@ public class ProductListServiceImpl implements ProductListService {
             productListDao.batchUpdate(productLists);
         }
         return "批量出库成功";
+    }
+
+    public List<ProductList> findProductSafeListPage(Map map) {
+        return null;
     }
 }
