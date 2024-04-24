@@ -1,6 +1,7 @@
 package com.storems.admin.action;
 
 import com.storems.admin.entity.ProductList;
+import com.storems.admin.service.ProductListService;
 import com.storems.admin.utils.ProductUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Controller;
@@ -9,17 +10,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 处理excel的control
+ */
 @Controller
 public class ImportExcelControl {
 
+    @Resource
+    ProductListService productListService;
+
     @PostMapping("/import")
     @ResponseBody
-    public String importExcel(@RequestParam("file") MultipartFile file) {
+    public String importExcel(@RequestParam("file") MultipartFile file,String flag) {
         try {
             // 读取文件
             Workbook workbook = WorkbookFactory.create(file.getInputStream());
@@ -42,6 +50,14 @@ public class ImportExcelControl {
                 ProductList product = new ProductList();
                 //添加流水号
                 product.setSerialno(ProductUtil.getSerialNo());
+                //设置标签
+                product.setFlag(flag);
+                //设置输入时间
+                product.setInputDate(ProductUtil.getCurDate());
+                //设置修改时间
+                product.setUpdateDate(ProductUtil.getCurDate());
+                //设置更改的用户
+                product.setUserid("system");
                 products.add(product);
                 j = 1;// 迭代单元格
                 for (Cell cell : row) {
@@ -65,6 +81,15 @@ public class ImportExcelControl {
                 }
                 i++;
             }
+            String message = "";
+            if ("1".equals(flag)) {
+                //入库商品
+                productListService.batchSave(products);
+            } else {
+                //出库商品
+                productListService.batchUpdate(products);
+            }
+            System.out.println(message);
             // 关闭workbook
             workbook.close();
         } catch (IOException e) {
