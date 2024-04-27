@@ -156,7 +156,7 @@
 	</div>
 	<div id="addExcel" style="display: none;margin: 0;padding: 0 0 0 0;">
 	<div class="formarea">
-		<form id="excelForm" method="post" action="/import">
+		<form id="excelForm" method="post" >
 			<input type="hidden" id="excel" name="excel"/>
 			<table border="0">
 				<tr>
@@ -171,6 +171,11 @@
 						<input type="radio" id="2" name="flag" value="2"/>出库
 					</td>
 				</tr>
+<%--				<tr>--%>
+<%--					<td style="width: 130px;">--%>
+<%--						<input type="submit"  value="提交"/>--%>
+<%--					</td>--%>
+<%--				</tr>--%>
 			</table>
 		</form>
 	</div>

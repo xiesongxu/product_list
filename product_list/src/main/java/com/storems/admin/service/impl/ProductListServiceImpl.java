@@ -4,6 +4,7 @@ import com.storems.admin.dao.ProductListDao;
 import com.storems.admin.entity.ProductList;
 import com.storems.admin.service.ProductListService;
 import com.storems.admin.utils.ProductUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 @Service
 public class ProductListServiceImpl implements ProductListService {
 
-    @Resource
+    @Autowired
     ProductListDao productListDao;
 
     /**
@@ -53,9 +54,9 @@ public class ProductListServiceImpl implements ProductListService {
             //获取出货商品id
             productID = product.getProductID();
             //获取出货商品数量
-            productSum = Integer.valueOf(product.getProductSum()).doubleValue();
+            productSum = Double.valueOf(product.getProductSum());
             //获取出货商品总价值
-            productValue = Integer.valueOf(product.getProductValue()).doubleValue();
+            productValue = Double.valueOf(product.getProductValue());
             //得到每个商品单价
             meanValue = productValue/productSum;
             //根据商品id获取保质期内的入库商品
@@ -63,7 +64,7 @@ public class ProductListServiceImpl implements ProductListService {
             //遍历存在的入库商品
             for (ProductList pd : productLists) {
                 //获取入库商品的数量
-                double sum = Integer.valueOf(pd.getProductSum()).doubleValue();
+                double sum = Double.valueOf(pd.getProductSum());
                 //减去入库商品，得到还存在的出库商品
                 productSum = productSum-sum;
                 //出库商品已经被全部计算
@@ -96,6 +97,10 @@ public class ProductListServiceImpl implements ProductListService {
                     //设置修改时间
                     pd.setUpdateDate(curDate);
                     pd.setRemark(product.getRemark());
+                }
+                //商品刚好出货完毕退出
+                if (productSum==0) {
+                    break;
                 }
             }
             productListDao.batchUpdate(productLists);

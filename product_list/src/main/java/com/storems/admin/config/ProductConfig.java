@@ -13,6 +13,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -25,7 +26,8 @@ import javax.sql.DataSource;
  */
 @Configuration()
 @ComponentScan("com.storems.admin")
-@MapperScan("com.storems.admin")
+@EnableTransactionManagement
+@MapperScan("com.storems.admin.dao")
 public class ProductConfig {
 
     /**
@@ -38,7 +40,8 @@ public class ProductConfig {
         DriverManagerDataSource dataSource1 = new DriverManagerDataSource();
         dataSource1.setUsername("root");
         dataSource1.setPassword("12345");
-        dataSource1.setUrl("jdbc:mysql://localhost:3306/sys");
+        //配置编码，allowMultiQueries打开批量执行多条sql开关
+        dataSource1.setUrl("jdbc:mysql://localhost:3306/sys?characterEncoding=utf-8&allowMultiQueries=true");
         dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return dataSource1;
     }
@@ -57,7 +60,7 @@ public class ProductConfig {
         factoryBean.setDataSource(data);
         //配置mapper.xml的扫描位置
         factoryBean.setMapperLocations(
-                applicationContext.getResources("classpath*:com/storems/admin/mapper/*Mapper.xml"));
+                applicationContext.getResources("classpath*:com/storems/admin/dao/mapper/*Mapper.xml"));
         //mapperLocations
         return factoryBean.getObject();
     }
@@ -75,13 +78,13 @@ public class ProductConfig {
         return transactionManager;
     }
 
-    @Bean
-    public ViewResolver setView() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/pages/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
+//    @Bean
+//    public ViewResolver setView() {
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/WEB-INF/pages/");
+//        viewResolver.setSuffix(".jsp");
+//        return viewResolver;
+//    }
 
     @Bean("multipartResolver")
     public MultipartResolver multipartResolver() {
@@ -90,4 +93,5 @@ public class ProductConfig {
         resolver.setMaxUploadSize(100000);
         return resolver;
     }
+
 }

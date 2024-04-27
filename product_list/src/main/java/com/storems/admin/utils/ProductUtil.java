@@ -6,6 +6,7 @@ import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 /**
  * 商品工具类
@@ -21,7 +22,7 @@ public class ProductUtil {
         String str = String.valueOf(System.currentTimeMillis());
         SimpleDateFormat formatData = new SimpleDateFormat("yyyyMMdd");
         //拼接当前时间和时间戳
-        str = formatData.format(new Date()) + str.substring(7,str.length());
+        str = formatData.format(new Date()) + UUID.randomUUID().toString() + str.substring(7,str.length());
         return str;
     }
 

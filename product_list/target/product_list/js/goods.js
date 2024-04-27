@@ -50,22 +50,40 @@ $(function() {
 		width : 500,
 		height : 300,
 		buttons : { // 为对话框添加按钮
-			"保存" : function() {
-				save();
+			"提交" : function() {
+				excelSave();
 			},
 			"重置" : function() {
-				$("#goodsForm").clearForm();
+				$("#excelForm").clearForm();
 			},
 			"取消" : function() {
-				$("#addDialog").dialog("close");
+				$("#addExcel").dialog("close");
 			}
 		},
 		open : function() {
 		},
 		close : function() {
-			$("#goodsForm").clearForm();
+			$("#excelForm").clearForm();
 		}
 	});
+
+	function excelSave() {
+		var formData = new FormData($('#excelForm')[0]);
+		$.ajax({
+			type: 'post',
+			url: "http://localhost:8080/product_list_war/import", //上传文件的请求路径必须是绝对路劲
+			data: formData,
+			cache: false,
+			processData: false,
+			contentType: false,
+		}).success(function (data) {
+			console.log(data);
+			alert("上传成功"+data);
+			filename=data;
+		}).error(function () {
+			alert("上传失败");
+		});
+	}
 
 	function excelInput() {
 		$("input[type=text]").removeAttr("readonly");

@@ -4,14 +4,18 @@ import com.storems.admin.entity.ProductList;
 import com.storems.admin.service.ProductListService;
 import com.storems.admin.utils.ProductUtil;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,12 +26,12 @@ import java.util.List;
 @Controller
 public class ImportExcelControl {
 
-    @Resource
+    @Autowired
     ProductListService productListService;
 
-    @PostMapping("/import")
+    @RequestMapping ("/import")
     @ResponseBody
-    public String importExcel(@RequestParam("file") MultipartFile file,@RequestParam("flag")String flag) {
+    public String importExcel(@RequestParam("file") MultipartFile file,@RequestParam("flag") String flag, HttpServletRequest request) {
         try {
             // 读取文件
             Workbook workbook = WorkbookFactory.create(file.getInputStream());
@@ -65,7 +69,9 @@ public class ImportExcelControl {
                     if (cell.getCellType() == CellType.STRING) {
                         value =  cell.getStringCellValue();
                     } else {
-                        value = String.valueOf(cell.getNumericCellValue());
+                        //如果小数位有值保留两位，没值则不保留小数位
+                        DecimalFormat df = new DecimalFormat("0.##");
+                        value = df.format(cell.getNumericCellValue());
                     }
                     //保存单元格数据
                     switch (j) {

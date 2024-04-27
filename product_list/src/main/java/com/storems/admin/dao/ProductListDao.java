@@ -4,6 +4,7 @@ import com.storems.admin.entity.Account;
 import com.storems.admin.entity.ProductList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,6 @@ import java.util.Map;
 /**
  * 商品导入信息Dao层
  */
-@Mapper
 public interface ProductListDao {
 
     /**
@@ -49,7 +49,7 @@ public interface ProductListDao {
      * @param productID
      * @return
      */
-    public List<ProductList> findByProductId(String productID,String curDate);
+    public List<ProductList> findByProductId(@Param("productID") String productID,@Param("curDate")String curDate);
 
     /**
      * 分页查询离保质期有一段时间的商品
