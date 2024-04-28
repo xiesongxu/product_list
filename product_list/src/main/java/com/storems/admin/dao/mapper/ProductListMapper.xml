@@ -51,6 +51,22 @@
         </foreach>
     </insert>
 
+    <select id="findProductList" resultType="java.util.Map" parameterType="java.util.Map">
+        select serialno,
+               productID,
+               productName,
+               productValue,
+               productSum,
+               remark,
+               flag,
+               expireDate,
+               inputDate,
+               updateDate,
+               userid
+        from product_list where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+            limit #{begin},  #{pageSize}
+    </select>
+
     <select id="findProductSafeListPage" resultType="java.util.Map" parameterType="java.util.Map">
         select serialno,
                productID,
@@ -117,11 +133,32 @@
         order by inputDate asc
     </select>
 
-    <select id="findSumByProductId" resultType="String" >
+    <select id="findSumByProductId" resultType="java.lang.Integer" >
         select sum(productSum)
         from product_list
         where productID=#{productID} and flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
     </select>
 
+    <select id="findSumProductList" resultType="java.lang.Integer" >
+        select sum(productSum)
+        from product_list
+        where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+    </select>
+
+    <select id="findProductBySerialno" resultType="com.storems.admin.entity.ProductList" >
+        select serialno,
+               productID,
+               productName,
+               productValue,
+               productSum,
+               remark,
+               flag,
+               expireDate,
+               inputDate,
+               updateDate,
+               userid
+        from product_list
+        where serialno=#{serialno}
+    </select>
 
 </mapper>

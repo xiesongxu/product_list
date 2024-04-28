@@ -111,4 +111,31 @@ public class ProductListServiceImpl implements ProductListService {
     public List<ProductList> findProductSafeListPage(Map map) {
         return null;
     }
+
+    /**
+     * 分页查询在保质期内商品列表
+     * @param map
+     * @return
+     */
+    public List<Map> findProductList(Map map) {
+        return productListDao.findProductList(map);
+    }
+
+    /**
+     * 查询在保质期内商品的总数
+     * @param curDate
+     * @return
+     */
+    public int findSumProductList(String curDate) {
+        return productListDao.findSumProductList(curDate);
+    }
+
+    /**
+     * 通过流水号查找对应商品
+     * @param serialno
+     * @return
+     */
+    public ProductList findProductBySerialno(String serialno) {
+        return productListDao.findProductBySerialno(serialno);
+    }
 }

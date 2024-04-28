@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * 商品导入信息Dao层
  */
+@Component
 public interface ProductListDao {
 
     /**
@@ -79,5 +80,25 @@ public interface ProductListDao {
      * @return
      */
     public String findSumByProductId(String productID,String curDate);
+
+    /**
+     * 分页查询在保质期内商品列表
+     * @return
+     */
+    public List<Map> findProductList(Map map);
+
+    /**
+     * 查询在保质期内商品的总数
+     * @param curDate
+     * @return
+     */
+    public int findSumProductList(String curDate);
+
+    /**
+     * 通过流水号查找对应商品
+     * @param serialno
+     * @return
+     */
+    public ProductList findProductBySerialno(@Param("serialno") String serialno);
 
 }

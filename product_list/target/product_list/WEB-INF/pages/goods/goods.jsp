@@ -116,35 +116,35 @@
 	<div id="addDialog" style="display: none;margin: 0;padding: 0 0 0 0;">
 	<div class="formarea">
 		<form id="goodsForm" method="post">
-			<input type="hidden" id="id" name="id"/>
+			<input type="hidden" id="serialno" name="serialno"/>
 			<table border="0">
 				<tr>
-					<td style="width: 60px;">商品名称:</td>
-					<td style="width: 170px;"><input type="text" id="name" name="name" /></td>
-					<td style="width: 60px;">商品编码:</td>
-					<td style="width: 170px;"><input type="text" id="code" name="code" /></td>
+					<td style="width: 60px;">商品ID:</td>
+					<td style="width: 170px;"><input type="text" id="productID" name="productID" /></td>
+					<td style="width: 60px;">商品名:</td>
+					<td style="width: 170px;"><input type="text" id="productName" name="productName" /></td>
 				</tr>
 				<tr>
-					<td>商品类型:</td>
-					<td><input type="text" id="type" name="type" /></td>
-					<td>商品规格:</td>
-					<td><input type="text" id="specification" name="specification" /></td>
+					<td>商品总金额:</td>
+					<td><input type="text" id="productValue" name="productValue" maxlength="8"/>&nbsp;&nbsp;元</td>
+					<td>商品总数:</td>
+					<td><input type="text" id="productSum" name="productSum" /></td>
 				</tr>
 				<tr>
-					<td>计量单位:</td>
-					<td><input type="text" id="unit" name="unit" /></td>
-					<td>单价:</td>
-					<td><input type="text" id="price" name="price" style="width: 140px;" maxlength="8"/>&nbsp;&nbsp;元</td>
+					<td>过期时间:</td>
+					<td><input type="text" id="expireDate" name="expireDate" /></td>
+					<td>修改时间:</td>
+					<td><input type="text" id="updateDate" name="updateDate" style="width: 140px;" /></td>
 				</tr>
 				<tr>
-					<td>生产日期:</td>
-					<td><input type="text" id="productionDate" name="productionDate" /></td>
-					<td>保质期:</td>
-					<td><input type="text" id="shelfLife" name="shelfLife" style="width: 140px;" maxlength="3"/>&nbsp;&nbsp;月</td>
+					<td>输入时间:</td>
+					<td><input type="text" id="inputDate" name="inputDate" /></td>
+					<td>用户:</td>
+					<td><input type="text" id="userid" name="userid" style="width: 140px;"/></td>
 				</tr>
 				<tr>
-					<td valign="top" style="padding-top: 2px;">备注信息:</td>
-					<td colspan="3"><textarea rows="4" id="note" name="note" style="width: 398px;"></textarea></td>
+					<td valign="top" style="padding-top: 2px;">备注:</td>
+					<td colspan="3"><textarea rows="4" id="remark" name="remark" style="width: 398px;"></textarea></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;color: red;">

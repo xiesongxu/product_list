@@ -31,4 +31,24 @@ public interface ProductListService {
      */
     public List<ProductList> findProductSafeListPage(Map map);
 
+    /**
+     * 查询保质期内的所有商品
+     * @param map
+     * @return
+     */
+    public List<Map> findProductList(Map map);
+
+    /**
+     * 查询在保质期内商品的总数
+     * @param curDate
+     * @return
+     */
+    public int findSumProductList(String curDate);
+
+    /**
+     * 通过流水号查找对应商品
+     * @param serialno
+     * @return
+     */
+    public ProductList findProductBySerialno(String serialno);
 }

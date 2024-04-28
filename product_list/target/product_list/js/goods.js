@@ -16,7 +16,7 @@ $(function() {
 		tableHtml = "";
 		$.ajax({
 			type : "post",
-			url : templateRoot + 'goods/Goods_pagelist.action',
+			url : templateRoot + 'product_list',
 			data : {
 				"currPage" : currPage
 			},
@@ -78,8 +78,9 @@ $(function() {
 			contentType: false,
 		}).success(function (data) {
 			console.log(data);
-			alert("上传成功"+data);
+			alert("上传成功");
 			filename=data;
+			$("#addExcel").dialog("close");
 		}).error(function () {
 			alert("上传失败");
 		});
@@ -104,14 +105,14 @@ $(function() {
 		tableHtml += "<td style='text-align: center; width:25px;'>-</td>";
 		tableHtml += "<td style='text-align: center; width:25px;'><input type='checkbox' onclick='checkAll();' id='checkAll'/></td>";
 //		tableHtml += "<td style='text-align: center; width:auto;'>ID</td>";
-		tableHtml += "<td style='text-align: center; width:auto;'>名称</td>";
-		tableHtml += "<td style='text-align: center; width:auto;'>编码</td>";
-		tableHtml += "<td style='text-align: center; width:auto;'>类型</td>";
-		tableHtml += "<td style='text-align: center; width:auto;'>规格</td>";
-		tableHtml += "<td style='text-align: center; width:auto;;'>计量单位</td>";
-		tableHtml += "<td style='text-align: center; width:auto;'>单价</td>";
-		tableHtml += "<td style='text-align: center; width:auto;;'>生产日期</td>";
-		tableHtml += "<td style='text-align: center; width:auto;'>保质期(月)</td>";
+		tableHtml += "<td style='text-align: center; width:auto;'>商品ID</td>";
+		tableHtml += "<td style='text-align: center; width:auto;'>商品名</td>";
+		tableHtml += "<td style='text-align: center; width:auto;'>商品总金额</td>";
+		tableHtml += "<td style='text-align: center; width:auto;'>商品总数</td>";
+		tableHtml += "<td style='text-align: center; width:auto;;'>过期时间</td>";
+		tableHtml += "<td style='text-align: center; width:auto;'>备注</td>";
+		tableHtml += "<td style='text-align: center; width:auto;;'>输入时间</td>";
+		tableHtml += "<td style='text-align: center; width:auto;'>用户</td>";
 
 		$.each(data.data, function(i, item) {
 			if (i % 2 == 0) {
@@ -119,18 +120,18 @@ $(function() {
 			} else {
 				bgColor = "#EEE";
 			}
-			tableHtml += "<tr style='background-color: " + bgColor + ";height:22px;' ondblclick='showDetailDialog(\"" + item.id + "\");'>";
+			tableHtml += "<tr style='background-color: " + bgColor + ";height:22px;' ondblclick='showDetailDialog(\"" + item.serialno + "\");'>";
 			tableHtml += "<td style='text-align: center;'>" + (i + 1) + "</td>";
-			tableHtml += "<td style='text-align: center;'><input name='ids' type='checkbox' class='checkItem' id='check-'" + i + " value='" + item.id + "'/></td>";
+			tableHtml += "<td style='text-align: center;'><input name='ids' type='checkbox' class='checkItem' id='check-'" + i + " value='" + item.serialno + "'/></td>";
 //			tableHtml += "<td style='text-align: center;'>" + item.id + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.name + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.code + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.type + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.specification + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.unit + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.price + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.productionDate + "</td>";
-			tableHtml += "<td style='text-align: center;'>" + item.shelfLife + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.productID + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.productName + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.productValue + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.productSum + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.expireDate + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.remark + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.inputDate + "</td>";
+			tableHtml += "<td style='text-align: center;'>" + item.userid + "</td>";
 		});
 		$("#goodsTable").html(tableHtml);
 	}
@@ -262,9 +263,9 @@ $(function() {
 		disableInput();
 		$.ajax({
 			type : "post",
-			url : templateRoot + 'goods/Goods_getById.action',
+			url : templateRoot + 'product_info',
 			data : {
-				"relationId" : id
+				"serialno" : id
 			},
 			dataType : "json",
 			cache : false,
@@ -280,16 +281,16 @@ $(function() {
 
 	// 为表单填值
 	function setForm(data) {
-		$("#id").val(data.id);
-		$("#name").val(data.name);
-		$("#code").val(data.code);
-		$("#type").val(data.type);
-		$("#unit").val(data.unit);
-		$("#price").val(data.price);
-		$("#productionDate").val(data.productionDate);
-		$("#shelfLife").val(data.shelfLife);
-		$("#note").val(data.note);
-		$("#specification").val(data.specification);
+		$("#serialno").val(data.serialno);
+		$("#productID").val(data.productID);
+		$("#productName").val(data.productName);
+		$("#productValue").val(data.productValue);
+		$("#productSum").val(data.productSum);
+		$("#expireDate").val(data.expireDate);
+		$("#updateDate").val(data.updateDate);
+		$("#inputDate").val(data.inputDate);
+		$("#userid").val(data.userid);
+		$("#remark").val(data.remark);
 	}
 
 	// 禁用输入并隐藏按钮
