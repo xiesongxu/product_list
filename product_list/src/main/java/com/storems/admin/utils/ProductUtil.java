@@ -22,7 +22,7 @@ public class ProductUtil {
         String str = String.valueOf(System.currentTimeMillis());
         SimpleDateFormat formatData = new SimpleDateFormat("yyyyMMdd");
         //拼接当前时间和时间戳
-        str = formatData.format(new Date()) + UUID.randomUUID().toString() + str.substring(7,str.length());
+        str = formatData.format(new Date()) + UUID.randomUUID().toString().replaceAll("-","").substring(0,6) + str.substring(7,str.length());
         return str;
     }
 

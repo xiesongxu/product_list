@@ -20,7 +20,7 @@
             inputDate =#{inputDate},
             updateDate =#{updateDate},
             userid =#{userid}
-            WHERE serialno = #{serialno}
+        WHERE serialno = #{serialno}
     </update>
 
     <delete id="delete" >
@@ -64,8 +64,27 @@
                updateDate,
                userid
         from product_list where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+        order by inputDate desc
             limit #{begin},  #{pageSize}
     </select>
+
+    <select id="findProductOutListPage" resultType="java.util.Map" parameterType="java.util.Map">
+        select serialno,
+               productID,
+               productName,
+               productValue,
+               productSum,
+               remark,
+               flag,
+               expireDate,
+               inputDate,
+               updateDate,
+               userid
+        from product_list where flag='2'
+        order by inputDate desc
+            limit #{begin},  #{pageSize}
+    </select>
+
 
     <select id="findProductSafeListPage" resultType="java.util.Map" parameterType="java.util.Map">
         select serialno,
@@ -79,7 +98,8 @@
                inputDate,
                updateDate,
                userid
-        from product_list where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curtime}))>3
+        from product_list where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>3
+        order by inputDate desc
             limit #{begin},  #{pageSize}
     </select>
 
@@ -95,7 +115,8 @@
                inputDate,
                updateDate,
                userid
-        from product_list where flag='1' and 4>(expireDate - timestampdiff(day,inputDate,#{curtime}))>0
+        from product_list where flag='1' and 4>(expireDate - timestampdiff(day,inputDate,#{curDate})) and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+        order by inputDate asc
             limit #{begin},  #{pageSize}
     </select>
 
@@ -111,7 +132,8 @@
                inputDate,
                updateDate,
                userid
-        from product_list where flag='1' and 0>=(expireDate - timestampdiff(day,inputDate,#{curtime}))
+        from product_list where flag='1' and 0>=(expireDate - timestampdiff(day,inputDate,#{curDate}))
+        order by inputDate desc
             limit #{begin},  #{pageSize}
     </select>
 
@@ -143,6 +165,30 @@
         select sum(productSum)
         from product_list
         where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+    </select>
+
+    <select id="findCountProductList" resultType="java.lang.Integer" >
+        select count(1)
+        from product_list
+        where flag='1' and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+    </select>
+
+    <select id="findCountOutProductList" resultType="java.lang.Integer" >
+        select count(1)
+        from product_list
+        where flag='2'
+    </select>
+
+    <select id="findCountSomeSafeProductList" resultType="java.lang.Integer" >
+        select count(1)
+        from product_list
+        where flag='1' and 4>(expireDate - timestampdiff(day,inputDate,#{curDate})) and (expireDate - timestampdiff(day,inputDate,#{curDate}))>0
+    </select>
+
+    <select id="findCountUnsafeProductList" resultType="java.lang.Integer" >
+        select count(1)
+        from product_list
+        where flag='1' and 0>=(expireDate - timestampdiff(day,inputDate,#{curtime}))
     </select>
 
     <select id="findProductBySerialno" resultType="com.storems.admin.entity.ProductList" >

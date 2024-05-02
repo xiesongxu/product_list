@@ -1,6 +1,7 @@
 package com.storems.admin.service;
 
 import com.storems.admin.entity.ProductList;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -51,4 +52,71 @@ public interface ProductListService {
      * @return
      */
     public ProductList findProductBySerialno(String serialno);
+
+    /**
+     * 新增一条商品数据
+     * @param productList
+     */
+    public void save(ProductList productList);
+
+    /**
+     * 修改数据
+     * @param product
+     */
+    public void update(ProductList product);
+
+    /**
+     * 删除数据
+     * @param serialno
+     */
+    public void delete(String serialno);
+
+    /**
+     * 查询商品的条数
+     * @param curDate
+     * @return
+     */
+    public int findCountProductList(String curDate);
+
+    /**
+     * 查询已出库的商品列表
+     * @param map
+     * @return
+     */
+    public List<Map> findProductOutListPage(Map map);
+
+    /**
+     * 查询临近过期的商品列表
+     * @param map
+     * @return
+     */
+    public List<Map> findProductSomeSafeListPage(Map map);
+
+    /**
+     * 查询已过期的商品列表
+     * @param map
+     * @return
+     */
+    public List<Map> findProductUnsafeListPage(Map map);
+
+    /**
+     * 出库商品总数
+     * @param curDate
+     * @return
+     */
+    public int findCountOutProductList(String curDate);
+
+    /**
+     * 临近过期商品总数
+     * @param curDate
+     * @return
+     */
+    public int findCountSomeSafeProductList(String curDate);
+
+    /**
+     * 过期商品总数
+     * @param curDate
+     * @return
+     */
+    public int findCountUnsafeProductList(String curDate);
 }

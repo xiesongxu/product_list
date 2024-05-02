@@ -34,6 +34,33 @@ public class GoodsAction {
 		return "goods/goods.jsp";
 	}
 
+	/**
+	 * 出库商品
+	 * @return
+	 */
+	@RequestMapping("/Goods_OutGoodsIndex.action")
+	public String outGoodsIndex() {
+		return "goods/OutGoods.jsp";
+	}
+
+	/**
+	 * 临期商品
+	 * @return
+	 */
+	@RequestMapping("/Goods_SomeSafegoodsIndex.action")
+	public String someSafeGoodsIndex() {
+		return "goods/SomeSafeGoods.jsp";
+	}
+
+	/**
+	 * 过期商品
+	 * @return
+	 */
+	@RequestMapping("/Goods_UnsafeGoodsIndex.action")
+	public String unsafeGoodsIndex() {
+		return "goods/UnsafeGoods.jsp";
+	}
+
 
 	/**
 	 * 根据ID数组批量删除

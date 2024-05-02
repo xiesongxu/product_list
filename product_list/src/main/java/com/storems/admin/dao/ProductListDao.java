@@ -29,9 +29,9 @@ public interface ProductListDao {
 
     /**
      * 删除数据
-     * @param product
+     * @param serialno
      */
-    public void delete(ProductList product);
+    public void delete(@Param("serialno") String serialno);
 
     /**
      * 批量保存数据
@@ -73,6 +73,14 @@ public interface ProductListDao {
      */
     public List<Map> findProductUnsafeListPage(Map map);
 
+
+    /**
+     * 分页查询出库商品列表
+     * @param map
+     * @return
+     */
+    public List<Map> findProductOutListPage(Map map);
+
     /**
      * 通过商品id找到对应商品总数
      * @param productID
@@ -101,4 +109,31 @@ public interface ProductListDao {
      */
     public ProductList findProductBySerialno(@Param("serialno") String serialno);
 
+    /**
+     * 查询商品的条数
+     * @param curDate
+     * @return
+     */
+    public int findCountProductList(String curDate);
+
+    /**
+     * 查询出库商品的总数
+     * @param curDate
+     * @return
+     */
+    public int findCountOutProductList(String curDate);
+
+    /**
+     * 查询临近过期商品的总数
+     * @param curDate
+     * @return
+     */
+    public int findCountSomeSafeProductList(String curDate);
+
+    /**
+     * 查询过期商品的总数
+     * @param curDate
+     * @return
+     */
+    public int findCountUnsafeProductList(String curDate);
 }

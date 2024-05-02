@@ -3,6 +3,7 @@ package com.storems.admin.action;
 import com.storems.admin.entity.ProductList;
 import com.storems.admin.service.ProductListService;
 import com.storems.admin.utils.ProductUtil;
+import com.storems.admin.utils.ResultUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class ImportExcelControl {
 
     @RequestMapping ("/import")
     @ResponseBody
-    public String importExcel(@RequestParam("file") MultipartFile file,@RequestParam("flag") String flag, HttpServletRequest request) {
+    public ResultUtil importExcel(@RequestParam("file") MultipartFile file,@RequestParam("flag") String flag) {
         try {
             // 读取文件
             Workbook workbook = WorkbookFactory.create(file.getInputStream());
@@ -101,6 +102,8 @@ public class ImportExcelControl {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "success";
+        HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("info","success");
+        return ResultUtil.success( hashMap);
     }
 }
